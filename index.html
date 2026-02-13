@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para China 💗</title>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #140811, #000000);
+      font-family: 'Georgia', serif;
+      margin: 0;
+      overflow: hidden;
+      color: #ffb6c1;
+    }
+
+    /* ANIMACIONES GENERALES */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 20px rgba(255,105,180,0.2); }
+      50% { box-shadow: 0 0 40px rgba(255,105,180,0.5); }
+      100% { box-shadow: 0 0 20px rgba(255,105,180,0.2); }
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.01); }
+      100% { transform: scale(1); }
+    }
+
+    .pantalla, .texto {
+      position: absolute;
+      top: 15%;
+      left: 10%;
+      right: 10%;
+      background: rgba(0, 0, 0, 0.65);
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #ff69b4;
+      z-index: 1;
+      text-align: center;
+      animation: fadeIn 1s ease, glow 4s infinite ease-in-out, breathe 6s infinite ease-in-out;
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2em;
+      animation: fadeIn 1.2s ease;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.7em;
+      white-space: pre-wrap;
+      text-align: left;
+      animation: fadeIn 1.4s ease;
+    }
+
+    .boton {
+      display: block;
+      margin: 1.5em auto 0;
+      padding: 0.7em 2em;
+      background: linear-gradient(45deg, #ff69b4, #ff9ac6);
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255,105,180,0.5);
+      transition: transform .2s, box-shadow .2s;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .boton:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 25px rgba(255,105,180,0.8);
+    }
+
+    .boton:active {
+      transform: scale(0.97);
+    }
+
+    .flores-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .flor {
+      position: absolute;
+      animation: caer linear, sway 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 6px #ff69b4);
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(-5vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    @keyframes sway {
+      0% { margin-left: -10px; }
+      50% { margin-left: 10px; }
+      100% { margin-left: -10px; }
+    }
+
+    #loading h1 {
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: .5; }
+      50% { opacity: 1; }
+      100% { opacity: .5; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="flores-container" id="flores-container"></div>
+
+<div class="pantalla" id="menu">
+  <h1 id="frase"></h1>
+  <button class="boton" id="btn14" style="display:none;">14 DE FEBRERO</button>
+  <button class="boton" id="btn4" style="display:none;">4 MESES</button>
+</div>
+
+<div class="pantalla" id="loading" style="display:none;">
+  <h1>cargando visas...</h1>
+</div>
+
+<div class="texto" id="texto" style="display:none;">
+  <h1 id="titulo"></h1>
+  <p id="mensaje"></p>
+  <button class="boton" id="volver" style="display:none;">VOLVER</button>
+</div>
+
+<script>
+  function crearFlor() {
+    const flor = document.createElement('div');
+    flor.classList.add('flor');
+    flor.innerHTML = '🌸';
+    flor.style.left = Math.random() * 100 + 'vw';
+    flor.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    flor.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    document.getElementById('flores-container').appendChild(flor);
+    setTimeout(() => flor.remove(), 10000);
+  }
+  setInterval(crearFlor, 350);
+
+  function escribirTexto(el, texto, vel, cb) {
+    el.textContent = "";
+    let i = 0;
+    const int = setInterval(() => {
+      if (i < texto.length) {
+        el.textContent += texto.charAt(i);
+        i++;
+      } else {
+        clearInterval(int);
+        if (cb) cb();
+      }
+    }, vel);
+  }
+
+  const frase = "Esto fue hecho con mucho amor para Alay💗";
+  const btn14 = document.getElementById("btn14");
+  const btn4 = document.getElementById("btn4");
+  const volver = document.getElementById("volver");
+
+  escribirTexto(document.getElementById("frase"), frase, 70, () => {
+    btn14.style.display = "block";
+    btn4.style.display = "block";
+  });
+
+  const texto14 = `Quise hacer algo distinto para vos,
+algo que no sea solo palabras rapidas,
+algo que tenga tiempo,
+como lo nuestro.
+
+Desde que apareciste,
+empece a notar detalles que antes me pasaban desapercibidos,
+momentos simples que ahora tienen otro valor,
+charlas que terminan siendo recuerdos que guardo sin darme cuenta.
+
+Me gusta como sos,
+me gusta tu forma de pensar,
+tu forma de ver las cosas,
+y como logras que todo se sienta mas tranquilo.
+
+No necesito que todo sea perfecto,
+porque lo que mas me gusta es lo real que es compartir tiempo con vos,
+reirnos por cualquier cosa,
+hablar horas,
+o simplemente estar sin decir nada.
+
+Me gusta que seas parte de mis dias,
+de mis pensamientos,
+y de todo lo que voy viviendo.
+
+Hice esto para recordarte que me importa lo nuestro,
+que valoro cada momento,
+y que me gusta seguir eligiendote.
+
+Feliz 14 de febrero Alay, Te amo.
+
+Escrito el 11 de febrero de 2025.`;
+
+  const texto4 = `Tambien aprovecho que hice esto para decir que cumplimos 4 meses
+y me pongo a pensar en todo lo que construimos en este tiempo,
+en lo simple y en lo intenso,
+y en absolutamente todo,
+me gusta compartir dias con vos,
+me gusta tu forma de ser
+y como entraste en mi vida sin forzar nada,
+gracias por estar,
+por acompañarme
+y por hacer que cada mes tenga sentido,
+quiero seguir formando momentos con vos,
+seguir riendonos,
+creciendo
+y eligiendonos,
+feliz 4 meses china,
+me importa lo nuestro
+y vos tambien,
+te amo mucho
+
+Escrito el 10 de febrero de 2025.`;
+
+  function mostrar(titulo, texto) {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+
+    setTimeout(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("texto").style.display = "block";
+      document.getElementById("titulo").textContent = titulo;
+
+      escribirTexto(document.getElementById("mensaje"), texto, 25, () => {
+        volver.style.display = "block";
+      });
+
+    }, 5000);
+  }
+
+  btn14.onclick = () => mostrar("💗 14 DE FEBRERO 💗", texto14);
+  btn4.onclick = () => mostrar("💞 4 MESES 💞", texto4);
+
+  volver.onclick = () => {
+    document.getElementById("texto").style.display = "none";
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("mensaje").textContent = "";
+    volver.style.display = "none";
+  };
+</script>
+
+</body>
+  </html>
